@@ -1,9 +1,7 @@
 const express = require('express');
 const app = express();
 
-app.use("/",(req,res)=>{
-    res.send("from dashboard an not changeable")
-})
+
 
 
 app.use("/test",(req,res)=>{
@@ -12,6 +10,10 @@ app.use("/test",(req,res)=>{
 
 app.use("/node",(req,res)=>{
     res.send("from node")
+})
+
+app.use("/",(req,res)=>{
+    res.send("from dashboard an not changeable")
 })
 
 
