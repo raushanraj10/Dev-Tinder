@@ -1,24 +1,23 @@
 const express = require('express');
+const {adminAuth}=require("./auth.js")
 const app = express();
 
-app.use("/",(req,res,next)=>{
-    console.log("not response 1")
-    // next();
-    res.send("hiii...1")
-    next();
-    
+app.use("/admin",adminAuth)
+
+app.get("/admin/getdata",(req,res)=>{
+    res.send("getting all data")
 })
-app.get("/user",(req,res,next)=>{
-    console.log("not response 2")
-    res.send("hiii..2.")
-    next();
-},(req,res,next)=>{
-    console.log("not responce 3")
-    next();
-},(req,res,next)=>{
-    res.send("hi there i am here")
-}
-)
+
+app.get("/admin/delete",(req,res)=>{
+    // throw ("sdfoioi")
+    // throw new Error("isdhf")
+    res.send("deleting data")
+})
+
+app.use("/",(err,req,res,next)=>{
+    if(err)
+        res.status(500).send("something went wrong")
+})
 
 
 app.listen(3333,()=>console.log("successfully accepted server"))
