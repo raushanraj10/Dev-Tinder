@@ -30,6 +30,49 @@ app.post("/singup", async (req,res)=>{
     }
 })
 
+app.get("/user",async (req,res)=>{
+    const useremail=req.body.Email;
+    // const userdata=await User.findOne({Email:useremail})
+     const userdata=await User.find({Email:useremail})
+    console.log(userdata)
+    res.send(userdata)
+})
+
+app.get("/feed",async (req,res)=>{
+    // const useremail=req.body.Email;
+    const userdata=await User.find({})
+    console.log(userdata)
+    res.send(userdata)
+})
+
+app.delete("/user",async (req, res)=>{
+    const userid=req.body.userid;
+    
+    try{
+        await User.findByIdAndDelete(userid)
+        res.send("deleted")
+    }
+    catch(err)
+    {
+        res.status(400).send("data deleted")
+    }
+})
+
+
+app.patch("/user",async (req,res)=>{
+    const userid=req.body.userid;
+    const data =req.body;
+
+    try{
+        const updatedbefore= await User.findByIdAndUpdate({_id:userid},data,{returnDocument:"before"})
+        console.log(updatedbefore)
+        res.send("updated")
+    }
+    catch{
+        res.send("something went wrong")
+    }
+
+})
 
 
 
