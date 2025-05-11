@@ -1,23 +1,16 @@
 const express = require('express');
 const {adminAuth}=require("./auth.js")
+const connectDB = require("./config/Database.js")
 const app = express();
 
-app.use("/admin",adminAuth)
 
-app.get("/admin/getdata",(req,res)=>{
-    res.send("getting all data")
+connectDB().then(()=>{
+    console.log("database connected succesfully")
+    app.listen(3333,()=>console.log("successfully accepted server"))
+    
 })
-
-app.get("/admin/delete",(req,res)=>{
-    // throw ("sdfoioi")
-    // throw new Error("isdhf")
-    res.send("deleting data")
-})
-
-app.use("/",(err,req,res,next)=>{
-    if(err)
-        res.status(500).send("something went wrong")
+.catch(()=>{
+    console.log("oops not able to connect database")
 })
 
 
-app.listen(3333,()=>console.log("successfully accepted server"))
